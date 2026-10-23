@@ -52,7 +52,7 @@ else:  # Dark Theme 🌙
   input_border = "rgba(139, 92, 246, 0.3)"
   fish_display = "none"
 
-# Apply Dynamic CSS with Floating Bottom Chat Bar
+# Apply Dynamic CSS (Using regular st.markdown to avoid f-string bracket conflicts)
 st.markdown(
     """
     <style>
@@ -103,17 +103,15 @@ st.markdown(
         z-index: 2;
     }
     
-    /* Floating Bottom Chat Input Bar */
     [data-testid="stChatInput"] {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        background: linear-gradient(180deg, transparent 0%, """
+        background-color: """
     + bg_color
-    + """ 60%) !important;
-        padding: 1rem 2rem 1.5rem 2rem !important;
-        z-index: 99999 !important;
+    + """ !important;
+        border-top: 1px solid """
+    + chat_border
+    + """;
+        padding-bottom: 1rem;
+        z-index: 2;
     }
     
     .stChatInputContainer {
@@ -123,10 +121,7 @@ st.markdown(
         border: 1px solid """
     + input_border
     + """ !important;
-        border-radius: 14px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-        max-width: 800px;
-        margin: 0 auto;
+        border-radius: 12px !important;
     }
     
     .stChatInputContainer textarea {
@@ -134,11 +129,6 @@ st.markdown(
     + text_color
     + """ !important;
         background-color: transparent !important;
-    }
-
-    /* Add bottom padding so chat messages don't get hidden behind the floating input */
-    .block-container {
-        padding-bottom: 7rem !important;
     }
     
     [data-testid="stSidebar"] {
