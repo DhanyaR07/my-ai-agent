@@ -26,6 +26,7 @@ if selected_theme == "Sea Theme 🌊":
   chat_border = "#bae6fd"
   input_bg = "#ffffff"
   input_border = "#38bdf8"
+  footer_bg = "linear-gradient(180deg, rgba(240,249,255,0) 0%, #e0f2fe 100%)"
   water_display = "block"
 elif selected_theme == "Light Theme ☀️":
   bg_color = "#f8fafc"
@@ -38,6 +39,7 @@ elif selected_theme == "Light Theme ☀️":
   chat_border = "#e2e8f0"
   input_bg = "#ffffff"
   input_border = "#cbd5e1"
+  footer_bg = "#f8fafc"
   water_display = "none"
 else:  # Dark Theme 🌙
   bg_color = "#08090d"
@@ -50,9 +52,10 @@ else:  # Dark Theme 🌙
   chat_border = "rgba(255, 255, 255, 0.08)"
   input_bg = "#12141c"
   input_border = "rgba(139, 92, 246, 0.3)"
+  footer_bg = "#08090d"
   water_display = "none"
 
-# Apply Dynamic CSS (Removing background wrapper behind chat input for water wave effect)
+# Apply Dynamic CSS (Turning the bottom search bar wrapper blue/ocean themed)
 st.markdown(
     """
     <style>
@@ -103,19 +106,20 @@ st.markdown(
         z-index: 2;
     }
     
-    /* COMPLETELY REMOVE WHITE BOX BEHIND CHAT INPUT */
+    /* FILL THE BOTTOM WRAPPER WITH BLUE/OCEAN GRADIENT */
     [data-testid="stChatInput"] {
-        background: transparent !important;
-        background-color: transparent !important;
+        background: """
+    + footer_bg
+    + """ !important;
         border-top: none !important;
         padding-bottom: 1.5rem;
         z-index: 99999;
     }
     
-    /* Target Streamlit's inner footer container block */
     [data-testid="stBottomBlockContainer"] {
-        background: transparent !important;
-        background-color: transparent !important;
+        background: """
+    + footer_bg
+    + """ !important;
     }
     
     .stChatInputContainer {
