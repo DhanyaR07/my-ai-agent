@@ -56,7 +56,7 @@ else:  # Dark Theme 🌙
   footer_bg = "#08090d"
   water_display = "none"
 
-# Apply Dynamic CSS
+# Apply Dynamic CSS with Jumping Fish Animations
 st.markdown(
     """
     <style>
@@ -151,6 +151,7 @@ st.markdown(
     + """;
     }
 
+    /* Swimming Fish Tank */
     .fish-tank {
         position: fixed;
         top: 0;
@@ -180,9 +181,65 @@ st.markdown(
 
     .fish-1 { top: 15%; animation-duration: 18s; animation-delay: 0s; }
     .fish-2 { top: 35%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }
-    .fish-3 { top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
-    .fish-4 { top: 80%; animation-duration: 22s; animation-delay: 6s; }
 
+    /* Jumping Fish from Bottom Wave */
+    .jumping-fish {
+        position: fixed;
+        bottom: 30px;
+        font-size: 26px;
+        animation: jump-out 4s ease-in-out infinite;
+        z-index: 1000;
+        display: """
+    + water_display
+    + """;
+        pointer-events: none;
+    }
+
+    @keyframes jump-out {
+        0% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 0;
+            left: 20%;
+        }
+        20% {
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-90px) rotate(-25deg);
+        }
+        80% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(0px) rotate(-45deg);
+            opacity: 0;
+            left: 28%;
+        }
+    }
+
+    .jf-2 {
+        animation-delay: 2s;
+        animation-duration: 5s;
+    }
+    @keyframes jump-out-2 {
+        0% { transform: translateY(0px) rotate(0deg); opacity: 0; right: 20%; }
+        50% { transform: translateY(-110px) rotate(25deg); opacity: 1; }
+        100% { transform: translateY(0px) rotate(45deg); opacity: 0; right: 28%; }
+    }
+    .jumping-fish-2 {
+        position: fixed;
+        bottom: 30px;
+        right: 25%;
+        font-size: 28px;
+        animation: jump-out-2 5s ease-in-out infinite;
+        z-index: 1000;
+        display: """
+    + water_display
+    + """;
+        pointer-events: none;
+    }
+
+    /* Animated Floating Water Wave at the Bottom */
     .ocean-water-container {
         position: fixed;
         bottom: 0;
@@ -218,9 +275,10 @@ st.markdown(
     <div class="fish-tank">
         <div class="fish fish-1">🐠</div>
         <div class="fish fish-2">🐟</div>
-        <div class="fish fish-3">🐬</div>
-        <div class="fish fish-4">🐠</div>
     </div>
+
+    <div class="jumping-fish">🐬</div>
+    <div class="jumping-fish-2">🐟</div>
 
     <div class="ocean-water-container">
         <div class="wave"></div>
@@ -230,7 +288,7 @@ st.markdown(
 )
 
 
-# --- AGENTIC AI TOOLS (Functions the AI can call autonomously) ---
+# --- AGENTIC AI TOOLS ---
 def calculate_expression(expression: str) -> str:
   """Calculates a mathematical expression safely when numbers or calculations are requested.
 
@@ -249,7 +307,6 @@ def get_current_time_info() -> str:
   return f"The current system date and time is: {datetime.datetime.now()}"
 
 
-# List of tools available to the agent
 agent_tools = [calculate_expression, get_current_time_info]
 
 # Initialize Gemini API configuration
@@ -291,7 +348,6 @@ persona = st.sidebar.selectbox(
     ["General Assistant", "AI Tutor", "Project Builder"],
 )
 
-# Define system prompts based on selected persona
 if persona == "General Assistant":
   system_prompt = (
       "You are a helpful, smart, and versatile agentic AI assistant with access"
