@@ -52,7 +52,7 @@ else:  # Dark Theme 🌙
   input_border = "rgba(139, 92, 246, 0.3)"
   water_display = "none"
 
-# Apply Dynamic CSS with Bottom Floating Water Waves and Fish
+# Apply Dynamic CSS with Compact, Centered Chat Input Bar
 st.markdown(
     """
     <style>
@@ -103,7 +103,7 @@ st.markdown(
         z-index: 2;
     }
     
-    /* Floating Bottom Chat Input Bar */
+    /* Compact, Centered Floating Bottom Chat Input Bar */
     [data-testid="stChatInput"] {
         position: fixed !important;
         bottom: 0 !important;
@@ -112,7 +112,7 @@ st.markdown(
         background: linear-gradient(180deg, transparent 0%, """
     + bg_color
     + """ 60%) !important;
-        padding: 1rem 2rem 2rem 2rem !important;
+        padding: 1rem 1.5rem 1.5rem 1.5rem !important;
         z-index: 99999 !important;
     }
     
@@ -125,8 +125,8 @@ st.markdown(
     + """ !important;
         border-radius: 14px !important;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-        max-width: 800px;
-        margin: 0 auto;
+        max-width: 700px !important;
+        margin: 0 auto !important;
     }
     
     .stChatInputContainer textarea {
@@ -137,7 +137,7 @@ st.markdown(
     }
 
     .block-container {
-        padding-bottom: 8rem !important;
+        padding-bottom: 7rem !important;
     }
     
     [data-testid="stSidebar"] {
@@ -155,7 +155,7 @@ st.markdown(
         bottom: 0;
         left: 0;
         width: 100vw;
-        height: 45px;
+        height: 40px;
         pointer-events: none;
         overflow: hidden;
         z-index: 9999;
@@ -170,15 +170,15 @@ st.markdown(
         left: 0;
         width: 200%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(56, 189, 248, 0.1), rgba(2, 132, 199, 0.35));
-        border-top: 2px solid rgba(125, 211, 252, 0.6);
+        background: linear-gradient(180deg, rgba(56, 189, 248, 0.1), rgba(2, 132, 199, 0.3));
+        border-top: 2px solid rgba(125, 211, 252, 0.5);
         animation: wave-float 4s ease-in-out infinite alternate;
         border-radius: 100% 100% 0 0;
     }
 
     @keyframes wave-float {
-        0% { transform: translateY(6px) scaleY(0.9); }
-        100% { transform: translateY(-4px) scaleY(1.2); }
+        0% { transform: translateY(5px) scaleY(0.9); }
+        100% { transform: translateY(-3px) scaleY(1.1); }
     }
 
     /* Swimming Fish Tank */
@@ -200,7 +200,7 @@ st.markdown(
         position: absolute;
         font-size: 24px;
         animation: swim linear infinite;
-        opacity: 0.75;
+        opacity: 0.7;
     }
 
     @keyframes swim {
@@ -209,15 +209,13 @@ st.markdown(
         100% { transform: translateX(calc(100vw + 100px)) translateY(15px) scaleX(1); }
     }
 
-    .fish-1 { top: 18%; animation-duration: 18s; animation-delay: 0s; }
-    .fish-2 { top: 40%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }
-    .fish-3 { top: 65%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
+    .fish-1 { top: 20%; animation-duration: 20s; animation-delay: 0s; }
+    .fish-2 { top: 50%; animation-duration: 25s; animation-delay: 3s; font-size: 20px; }
     </style>
 
     <div class="fish-tank">
         <div class="fish fish-1">🐠</div>
         <div class="fish fish-2">🐟</div>
-        <div class="fish fish-3">🐬</div>
     </div>
 
     <div class="ocean-water-container">
