@@ -26,7 +26,7 @@ if selected_theme == "Sea Theme 🌊":
   chat_border = "#bae6fd"
   input_bg = "#ffffff"
   input_border = "#38bdf8"
-  water_display = "block"
+  fish_display = "block"
 elif selected_theme == "Light Theme ☀️":
   bg_color = "#f8fafc"
   text_color = "#0f172a"
@@ -38,7 +38,7 @@ elif selected_theme == "Light Theme ☀️":
   chat_border = "#e2e8f0"
   input_bg = "#ffffff"
   input_border = "#cbd5e1"
-  water_display = "none"
+  fish_display = "none"
 else:  # Dark Theme 🌙
   bg_color = "#08090d"
   text_color = "#e2e8f0"
@@ -50,9 +50,9 @@ else:  # Dark Theme 🌙
   chat_border = "rgba(255, 255, 255, 0.08)"
   input_bg = "#12141c"
   input_border = "rgba(139, 92, 246, 0.3)"
-  water_display = "none"
+  fish_display = "none"
 
-# Apply Dynamic CSS with Compact, Centered Chat Input Bar
+# Apply Dynamic CSS (Using regular st.markdown to avoid f-string bracket conflicts)
 st.markdown(
     """
     <style>
@@ -103,17 +103,15 @@ st.markdown(
         z-index: 2;
     }
     
-    /* Compact, Centered Floating Bottom Chat Input Bar */
     [data-testid="stChatInput"] {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        background: linear-gradient(180deg, transparent 0%, """
+        background-color: """
     + bg_color
-    + """ 60%) !important;
-        padding: 1rem 1.5rem 1.5rem 1.5rem !important;
-        z-index: 99999 !important;
+    + """ !important;
+        border-top: 1px solid """
+    + chat_border
+    + """;
+        padding-bottom: 1rem;
+        z-index: 2;
     }
     
     .stChatInputContainer {
@@ -123,10 +121,7 @@ st.markdown(
         border: 1px solid """
     + input_border
     + """ !important;
-        border-radius: 14px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-        max-width: 700px !important;
-        margin: 0 auto !important;
+        border-radius: 12px !important;
     }
     
     .stChatInputContainer textarea {
@@ -134,10 +129,6 @@ st.markdown(
     + text_color
     + """ !important;
         background-color: transparent !important;
-    }
-
-    .block-container {
-        padding-bottom: 7rem !important;
     }
     
     [data-testid="stSidebar"] {
@@ -149,39 +140,6 @@ st.markdown(
     + """;
     }
 
-    /* Floating Animated Water Waves at the Bottom */
-    .ocean-water-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 40px;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 9999;
-        display: """
-    + water_display
-    + """;
-    }
-
-    .wave {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(56, 189, 248, 0.1), rgba(2, 132, 199, 0.3));
-        border-top: 2px solid rgba(125, 211, 252, 0.5);
-        animation: wave-float 4s ease-in-out infinite alternate;
-        border-radius: 100% 100% 0 0;
-    }
-
-    @keyframes wave-float {
-        0% { transform: translateY(5px) scaleY(0.9); }
-        100% { transform: translateY(-3px) scaleY(1.1); }
-    }
-
-    /* Swimming Fish Tank */
     .fish-tank {
         position: fixed;
         top: 0;
@@ -192,7 +150,7 @@ st.markdown(
         overflow: hidden;
         z-index: 1;
         display: """
-    + water_display
+    + fish_display
     + """;
     }
 
@@ -205,21 +163,21 @@ st.markdown(
 
     @keyframes swim {
         0% { transform: translateX(-100px) translateY(0px) scaleX(1); }
-        50% { transform: translateX(calc(50vw)) translateY(-25px) scaleX(1); }
-        100% { transform: translateX(calc(100vw + 100px)) translateY(15px) scaleX(1); }
+        50% { transform: translateX(calc(50vw)) translateY(-30px) scaleX(1); }
+        100% { transform: translateX(calc(100vw + 100px)) translateY(20px) scaleX(1); }
     }
 
-    .fish-1 { top: 20%; animation-duration: 20s; animation-delay: 0s; }
-    .fish-2 { top: 50%; animation-duration: 25s; animation-delay: 3s; font-size: 20px; }
+    .fish-1 { top: 15%; animation-duration: 18s; animation-delay: 0s; }
+    .fish-2 { top: 35%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }
+    .fish-3 { top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
+    .fish-4 { top: 80%; animation-duration: 22s; animation-delay: 6s; }
     </style>
 
     <div class="fish-tank">
         <div class="fish fish-1">🐠</div>
         <div class="fish fish-2">🐟</div>
-    </div>
-
-    <div class="ocean-water-container">
-        <div class="wave"></div>
+        <div class="fish fish-3">🐬</div>
+        <div class="fish fish-4">🐠</div>
     </div>
 """,
     unsafe_allow_html=True,
