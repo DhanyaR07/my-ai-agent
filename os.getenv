@@ -1,0 +1,18 @@
+import os
+import streamlit as st
+
+# Safely check for GEMINI_API_KEY without crashing if secrets.toml is missing
+gemini_api_key = None
+try:
+    if "GEMINI_API_KEY" in st.secrets:
+        gemini_api_key = st.secrets["GEMINI_API_KEY"]
+except Exception:
+    pass
+
+# Fallback to system environment variables (like a .env file or local export)
+if not gemini_api_key:
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
+
+# Your original logic can now safely check or use gemini_api_key
+if not gemini_api_key:
+    st.error("GEMINI_API_KEY is not configured. Please add it to your .streamlit/secrets.toml or environment variables.")

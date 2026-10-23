@@ -1,0 +1,26 @@
+# Environment variables and secret API keys (NEVER commit to GitHub)
+.env
+.env.*
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Agent-generated local notes
+notes/
+
+# VS Code and OS metadata
+.vscode/
+.DS_Store
+Thumbs.db
+
+.streamlit/
+secrets.toml
+.env
