@@ -1,5 +1,4 @@
 import os
-<<<<<<< HEAD
 import streamlit as st
 from agent import PersonalAgent
 
@@ -46,7 +45,7 @@ if prompt := st.chat_input("Ask your agent anything..."):
             reply = st.session_state.agent.ask(prompt)
             st.markdown(reply)
     st.session_state.messages.append({"role": "assistant", "content": reply})
-=======
+
 import google.generativeai as genai
 import streamlit as st
 
@@ -160,4 +159,3 @@ else:
 
   except Exception as e:
     st.error(f"Failed to configure AI model: {e}")
->>>>>>> 157167f (Initial commit: Personal AI Agent with Gemini API and custom tools)
