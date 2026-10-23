@@ -26,7 +26,7 @@ if selected_theme == "Sea Theme 🌊":
   chat_border = "#bae6fd"
   input_bg = "#ffffff"
   input_border = "#38bdf8"
-  water_display = "block"
+  fish_display = "block"
 elif selected_theme == "Light Theme ☀️":
   bg_color = "#f8fafc"
   text_color = "#0f172a"
@@ -38,7 +38,7 @@ elif selected_theme == "Light Theme ☀️":
   chat_border = "#e2e8f0"
   input_bg = "#ffffff"
   input_border = "#cbd5e1"
-  water_display = "none"
+  fish_display = "none"
 else:  # Dark Theme 🌙
   bg_color = "#08090d"
   text_color = "#e2e8f0"
@@ -50,9 +50,9 @@ else:  # Dark Theme 🌙
   chat_border = "rgba(255, 255, 255, 0.08)"
   input_bg = "#12141c"
   input_border = "rgba(139, 92, 246, 0.3)"
-  water_display = "none"
+  fish_display = "none"
 
-# Apply Dynamic CSS (Transparent Chat Input Background to show Water Waves)
+# Apply Dynamic CSS (Using regular st.markdown to avoid f-string bracket conflicts)
 st.markdown(
     """
     <style>
@@ -103,12 +103,15 @@ st.markdown(
         z-index: 2;
     }
     
-    /* Transparent background behind search bar to display floating water */
     [data-testid="stChatInput"] {
-        background: transparent !important;
-        border-top: none !important;
+        background-color: """
+    + bg_color
+    + """ !important;
+        border-top: 1px solid """
+    + chat_border
+    + """;
         padding-bottom: 1rem;
-        z-index: 99999;
+        z-index: 2;
     }
     
     .stChatInputContainer {
@@ -119,7 +122,6 @@ st.markdown(
     + input_border
     + """ !important;
         border-radius: 12px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
     
     .stChatInputContainer textarea {
@@ -169,38 +171,6 @@ st.markdown(
     .fish-2 { top: 35%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }
     .fish-3 { top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
     .fish-4 { top: 80%; animation-duration: 22s; animation-delay: 6s; }
-
-    /* Animated Floating Water Wave at the Bottom */
-    .ocean-water-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 50px;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 999;
-        display: """
-    + water_display
-    + """;
-    }
-
-    .wave {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 200%;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(56, 189, 248, 0.1), rgba(2, 132, 199, 0.3));
-        border-top: 2px solid rgba(125, 211, 252, 0.6);
-        animation: wave-float 4s ease-in-out infinite alternate;
-        border-radius: 100% 100% 0 0;
-    }
-
-    @keyframes wave-float {
-        0% { transform: translateY(6px) scaleY(0.9); }
-        100% { transform: translateY(-4px) scaleY(1.2); }
-    }
     </style>
 
     <div class="fish-tank">
@@ -208,10 +178,6 @@ st.markdown(
         <div class="fish fish-2">🐟</div>
         <div class="fish fish-3">🐬</div>
         <div class="fish fish-4">🐠</div>
-    </div>
-
-    <div class="ocean-water-container">
-        <div class="wave"></div>
     </div>
 """,
     unsafe_allow_html=True,
