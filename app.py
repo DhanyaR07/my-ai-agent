@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="Oceanic AI Workspace", page_icon="🌊", layout="wide"
 )
 
-# Custom CSS for Light Sea / Ocean Theme
+# Custom CSS for Light Sea Theme + Swimming Fish Animation
 st.markdown(
     """
     <style>
@@ -29,6 +29,8 @@ st.markdown(
         color: #0369a1;
         margin-bottom: 2rem;
         box-shadow: 0 4px 20px rgba(2, 132, 199, 0.05);
+        position: relative;
+        z-index: 2;
     }
     
     /* Chat Message Bubbles for Sea Theme */
@@ -40,6 +42,8 @@ st.markdown(
         margin-bottom: 1rem;
         color: #0c4a6e !important;
         box-shadow: 0 2px 8px rgba(2, 132, 199, 0.03);
+        position: relative;
+        z-index: 2;
     }
     
     /* Bottom Chat Input Bar for Sea Theme */
@@ -47,6 +51,7 @@ st.markdown(
         background-color: #f0f9ff !important;
         border-top: 1px solid #bae6fd;
         padding-bottom: 1rem;
+        z-index: 2;
     }
     
     .stChatInputContainer {
@@ -66,7 +71,52 @@ st.markdown(
         background-color: #e0f2fe !important;
         border-right: 1px solid #bae6fd;
     }
+
+    /* Swimming Fish Animation Container */
+    .fish-tank {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .fish {
+        position: absolute;
+        font-size: 24px;
+        animation: swim linear infinite;
+        opacity: 0.7;
+    }
+
+    @keyframes swim {
+        0% {
+            transform: translateX(-100px) translateY(0px) scaleX(1);
+        }
+        50% {
+            transform: translateX(calc(50vw)) translateY(-30px) scaleX(1);
+        }
+        100% {
+            transform: translateX(calc(100vw + 100px)) translateY(20px) scaleX(1);
+        }
+    }
+
+    /* Individual fish floating speeds and paths */
+    .fish-1 { top: 15%; animation-duration: 18s; animation-delay: 0s; }
+    .fish-2 { top: 35%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }
+    .fish-3 { top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
+    .fish-4 { top: 80%; animation-duration: 22s; animation-delay: 6s; }
     </style>
+
+    <!-- Animated Swimming Fish Elements -->
+    <div class="fish-tank">
+        <div class="fish fish-1">🐠</div>
+        <div class="fish fish-2">🐟</div>
+        <div class="fish fish-3">🐬</div>
+        <div class="fish fish-4">🐠</div>
+    </div>
 """,
     unsafe_allow_html=True,
 )
