@@ -7,25 +7,20 @@ st.set_page_config(
     page_title="AI Command Center", page_icon="🚀", layout="wide"
 )
 
-# Custom CSS for Dark Space / Cyberpunk Command Center Theme
+# Custom CSS for 100% Pure Cohesive Dark Theme
 st.markdown(
     """
     <style>
-    /* Global Dark Space Background */
-    .stApp {
-        background-color: #08090d;
-        color: #e2e8f0;
+    /* Force full dark background across the entire app and sidebar */
+    .stApp, .main, [data-testid="stSidebar"] {
+        background-color: #08090d !important;
+        color: #e2e8f0 !important;
     }
     
-    /* Main Content Area */
-    .main {
-        background-color: #08090d;
-    }
-    
-    /* Hide Streamlit Default Header elements for a clean dashboard look */
+    /* Hide Streamlit default top header */
     header {visibility: hidden;}
-    
-    /* Custom Command Center Hero Card */
+
+    /* Command Center Hero Header */
     .command-header {
         background: linear-gradient(135deg, #12141c 0%, #1a1d2d 100%);
         border: 1px solid rgba(139, 92, 246, 0.2);
@@ -33,52 +28,53 @@ st.markdown(
         border-radius: 16px;
         color: white;
         margin-bottom: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
     
-    /* Glow Stat Cards (Mission Telemetry Style) */
-    .stat-container {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 2rem;
-    }
+    /* Mission Telemetry Stat Cards */
     .stat-card {
-        background: rgba(18, 20, 28, 0.7);
+        background: rgba(18, 20, 28, 0.8);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 1.2rem;
         text-align: center;
         flex: 1;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        transition: all 0.3s ease;
-    }
-    .stat-card:hover {
-        border-color: rgba(139, 92, 246, 0.5);
-        box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     }
     
-    /* Chat Message Bubbles Styling for Dark Mode */
+    /* Chat Message Bubbles for Dark Mode */
     .stChatMessage {
         background-color: #12141c !important;
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        color: #e2e8f0 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
     
-    /* Sidebar Dark Theme Styling */
-    [data-testid="stSidebar"] {
-        background-color: #0d0f17;
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+    /* COMPLETELY FIX THE BOTTOM CHAT INPUT BAR TO DARK THEME */
+    [data-testid="stChatInput"] {
+        background-color: #08090d !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 1rem;
     }
     
-    /* Custom Scrollbars and text inputs */
-    .stTextInput input, .stChatInput input {
+    .stChatInputContainer {
         background-color: #12141c !important;
-        color: white !important;
         border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        border-radius: 12px !important;
+    }
+    
+    .stChatInputContainer textarea {
+        color: #ffffff !important;
+        background-color: transparent !important;
+    }
+    
+    /* Sidebar Styling */
+    [data-testid="stSidebar"] {
+        background-color: #0d0f17 !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
     </style>
 """,
