@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="AI Workspace", page_icon="✨", layout="wide"
 )
 
-# Custom CSS for 100% Pure Cohesive Light Theme
+# Custom CSS for Clean Light Theme (Without Stat Cards)
 st.markdown(
     """
     <style>
@@ -29,17 +29,6 @@ st.markdown(
         color: #0f172a;
         margin-bottom: 2rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    }
-    
-    /* Telemetry Stat Cards */
-    .stat-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 1.2rem;
-        text-align: center;
-        flex: 1;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
     }
     
     /* Chat Message Bubbles for Light Mode */
@@ -111,51 +100,6 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
-
-# Stat Cards Row
-col1, col2, col3, col4 = st.columns(4)
-with col1:
-  st.markdown(
-      """
-        <div class="stat-card">
-            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">System Status</div>
-            <div style="font-size: 1.2rem; font-weight: 700; color: #16a34a; margin-top: 5px;">ONLINE</div>
-        </div>
-    """,
-      unsafe_allow_html=True,
-  )
-with col2:
-  st.markdown(
-      """
-        <div class="stat-card">
-            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">AI Model</div>
-            <div style="font-size: 1.1rem; font-weight: 700; color: #2563eb; margin-top: 5px;">Gemini 2.5</div>
-        </div>
-    """,
-      unsafe_allow_html=True,
-  )
-with col3:
-  st.markdown(
-      """
-        <div class="stat-card">
-            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Security</div>
-            <div style="font-size: 1.2rem; font-weight: 700; color: #7c3aed; margin-top: 5px;">SECURE</div>
-        </div>
-    """,
-      unsafe_allow_html=True,
-  )
-with col4:
-  st.markdown(
-      """
-        <div class="stat-card">
-            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Uptime</div>
-            <div style="font-size: 1.2rem; font-weight: 700; color: #db2777; margin-top: 5px;">100%</div>
-        </div>
-    """,
-      unsafe_allow_html=True,
-  )
-
-st.markdown("<br>", unsafe_allow_html=True)
 
 # Sidebar for Persona / Mode Selection
 st.sidebar.markdown(
