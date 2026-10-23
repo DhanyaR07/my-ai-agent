@@ -52,7 +52,7 @@ else:  # Dark Theme 🌙
   input_border = "rgba(139, 92, 246, 0.3)"
   water_display = "none"
 
-# Apply Dynamic CSS (Transparent Chat Input Background to show Water Waves)
+# Apply Dynamic CSS (Removing background wrapper behind chat input for water wave effect)
 st.markdown(
     """
     <style>
@@ -103,12 +103,19 @@ st.markdown(
         z-index: 2;
     }
     
-    /* Transparent background behind search bar to display floating water */
+    /* COMPLETELY REMOVE WHITE BOX BEHIND CHAT INPUT */
     [data-testid="stChatInput"] {
         background: transparent !important;
+        background-color: transparent !important;
         border-top: none !important;
-        padding-bottom: 1rem;
+        padding-bottom: 1.5rem;
         z-index: 99999;
+    }
+    
+    /* Target Streamlit's inner footer container block */
+    [data-testid="stBottomBlockContainer"] {
+        background: transparent !important;
+        background-color: transparent !important;
     }
     
     .stChatInputContainer {
@@ -118,8 +125,8 @@ st.markdown(
         border: 1px solid """
     + input_border
     + """ !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-radius: 14px !important;
+        box-shadow: 0 4px 20px rgba(2, 132, 199, 0.15) !important;
         max-width: 700px !important;
         margin: 0 auto !important;
     }
@@ -178,7 +185,7 @@ st.markdown(
         bottom: 0;
         left: 0;
         width: 100vw;
-        height: 50px;
+        height: 60px;
         pointer-events: none;
         overflow: hidden;
         z-index: 999;
@@ -193,8 +200,8 @@ st.markdown(
         left: 0;
         width: 200%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(56, 189, 248, 0.1), rgba(2, 132, 199, 0.3));
-        border-top: 2px solid rgba(125, 211, 252, 0.6);
+        background: linear-gradient(180deg, rgba(56, 189, 248, 0.05), rgba(2, 132, 199, 0.4));
+        border-top: 2px solid rgba(125, 211, 252, 0.7);
         animation: wave-float 4s ease-in-out infinite alternate;
         border-radius: 100% 100% 0 0;
     }
