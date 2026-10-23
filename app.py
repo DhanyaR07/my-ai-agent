@@ -26,6 +26,7 @@ if selected_theme == "Sea Theme 🌊":
   chat_border = "#bae6fd"
   input_bg = "#ffffff"
   input_border = "#38bdf8"
+  fish_display = "block"
 elif selected_theme == "Light Theme ☀️":
   bg_color = "#f8fafc"
   text_color = "#0f172a"
@@ -37,6 +38,7 @@ elif selected_theme == "Light Theme ☀️":
   chat_border = "#e2e8f0"
   input_bg = "#ffffff"
   input_border = "#cbd5e1"
+  fish_display = "none"
 else:  # Dark Theme 🌙
   bg_color = "#08090d"
   text_color = "#e2e8f0"
@@ -48,67 +50,97 @@ else:  # Dark Theme 🌙
   chat_border = "rgba(255, 255, 255, 0.08)"
   input_bg = "#12141c"
   input_border = "rgba(139, 92, 246, 0.3)"
+  fish_display = "none"
 
-# Apply Dynamic CSS Based on Selected Theme
+# Apply Dynamic CSS (Using regular st.markdown to avoid f-string bracket conflicts)
 st.markdown(
-    f"""
+    """
     <style>
-    .stApp, .main, [data-testid="stSidebar"] {{
-        background-color: {bg_color} !important;
-        color: {text_color} !important;
-    }}
+    .stApp, .main, [data-testid="stSidebar"] {
+        background-color: """
+    + bg_color
+    + """ !important;
+        color: """
+    + text_color
+    + """ !important;
+    }
     
-    header {{visibility: hidden;}}
+    header {visibility: hidden;}
 
-    .hero-header {{
-        background: {hero_bg};
-        border: 1px solid {hero_border};
+    .hero-header {
+        background: """
+    + hero_bg
+    + """;
+        border: 1px solid """
+    + hero_border
+    + """;
         padding: 2rem;
         border-radius: 16px;
-        color: {hero_text};
+        color: """
+    + hero_text
+    + """;
         margin-bottom: 2rem;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         position: relative;
         z-index: 2;
     }
     
-    .stChatMessage {{
-        background-color: {chat_bg} !important;
-        border: 1px solid {chat_border};
+    .stChatMessage {
+        background-color: """
+    + chat_bg
+    + """ !important;
+        border: 1px solid """
+    + chat_border
+    + """;
         border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1rem;
-        color: {text_color} !important;
+        color: """
+    + text_color
+    + """ !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         position: relative;
         z-index: 2;
     }
     
-    [data-testid="stChatInput"] {{
-        background-color: {bg_color} !important;
-        border-top: 1px solid {chat_border};
+    [data-testid="stChatInput"] {
+        background-color: """
+    + bg_color
+    + """ !important;
+        border-top: 1px solid """
+    + chat_border
+    + """;
         padding-bottom: 1rem;
         z-index: 2;
     }
     
-    .stChatInputContainer {{
-        background-color: {input_bg} !important;
-        border: 1px solid {input_border} !important;
+    .stChatInputContainer {
+        background-color: """
+    + input_bg
+    + """ !important;
+        border: 1px solid """
+    + input_border
+    + """ !important;
         border-radius: 12px !important;
     }
     
-    .stChatInputContainer textarea {{
-        color: {text_color} !important;
+    .stChatInputContainer textarea {
+        color: """
+    + text_color
+    + """ !important;
         background-color: transparent !important;
     }
     
-    [data-testid="stSidebar"] {{
-        background-color: {sidebar_bg} !important;
-        border-right: 1px solid {chat_border};
-    }}
+    [data-testid="stSidebar"] {
+        background-color: """
+    + sidebar_bg
+    + """ !important;
+        border-right: 1px solid """
+    + chat_border
+    + """;
+    }
 
-    /* Fish Animation only visible when Sea Theme is selected */
-    .fish-tank {{
+    .fish-tank {
         position: fixed;
         top: 0;
         left: 0;
@@ -117,26 +149,28 @@ st.markdown(
         pointer-events: none;
         overflow: hidden;
         z-index: 1;
-        display: {"block" if selected_theme == "Sea Theme 🌊" else "none"};
-    }}
+        display: """
+    + fish_display
+    + """;
+    }
 
-    .fish {{
+    .fish {
         position: absolute;
         font-size: 24px;
         animation: swim linear infinite;
         opacity: 0.7;
-    }}
+    }
 
-    @keyframes swim {{
-        0% {{ transform: translateX(-100px) translateY(0px) scaleX(1); }}
-        50% {{ transform: translateX(calc(50vw)) translateY(-30px) scaleX(1); }}
-        100% {{ transform: translateX(calc(100vw + 100px)) translateY(20px) scaleX(1); }}
-    }}
+    @keyframes swim {
+        0% { transform: translateX(-100px) translateY(0px) scaleX(1); }
+        50% { transform: translateX(calc(50vw)) translateY(-30px) scaleX(1); }
+        100% { transform: translateX(calc(100vw + 100px)) translateY(20px) scaleX(1); }
+    }
 
-    .fish-1 {{ top: 15%; animation-duration: 18s; animation-delay: 0s; }}
-    .fish-2 {{ top: 35%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }}
-    .fish-3 {{ top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }}
-    .fish-4 {{ top: 80%; animation-duration: 22s; animation-delay: 6s; }}
+    .fish-1 { top: 15%; animation-duration: 18s; animation-delay: 0s; }
+    .fish-2 { top: 35%; animation-duration: 24s; animation-delay: 4s; font-size: 20px; }
+    .fish-3 { top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
+    .fish-4 { top: 80%; animation-duration: 22s; animation-delay: 6s; }
     </style>
 
     <div class="fish-tank">
