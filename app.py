@@ -4,67 +4,67 @@ import streamlit as st
 
 # Configure page settings
 st.set_page_config(
-    page_title="AI Workspace", page_icon="✨", layout="wide"
+    page_title="Oceanic AI Workspace", page_icon="🌊", layout="wide"
 )
 
-# Custom CSS for Clean Light Theme (Without Stat Cards)
+# Custom CSS for Light Sea / Ocean Theme
 st.markdown(
     """
     <style>
-    /* Force full light background across the entire app and sidebar */
+    /* Force soft ocean mist background across the entire app and sidebar */
     .stApp, .main, [data-testid="stSidebar"] {
-        background-color: #f8fafc !important;
-        color: #0f172a !important;
+        background-color: #f0f9ff !important;
+        color: #0c4a6e !important;
     }
     
     /* Hide Streamlit default top header */
     header {visibility: hidden;}
 
-    /* Hero Header Card */
+    /* Ocean Hero Header Card */
     .hero-header {
-        background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-        border: 1px solid #e2e8f0;
+        background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+        border: 1px solid #7dd3fc;
         padding: 2rem;
         border-radius: 16px;
-        color: #0f172a;
+        color: #0369a1;
         margin-bottom: 2rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        box-shadow: 0 4px 20px rgba(2, 132, 199, 0.05);
     }
     
-    /* Chat Message Bubbles for Light Mode */
+    /* Chat Message Bubbles for Sea Theme */
     .stChatMessage {
         background-color: #ffffff !important;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #bae6fd;
         border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1rem;
-        color: #0f172a !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        color: #0c4a6e !important;
+        box-shadow: 0 2px 8px rgba(2, 132, 199, 0.03);
     }
     
-    /* Bottom Chat Input Bar for Light Mode */
+    /* Bottom Chat Input Bar for Sea Theme */
     [data-testid="stChatInput"] {
-        background-color: #f8fafc !important;
-        border-top: 1px solid #e2e8f0;
+        background-color: #f0f9ff !important;
+        border-top: 1px solid #bae6fd;
         padding-bottom: 1rem;
     }
     
     .stChatInputContainer {
         background-color: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
+        border: 1px solid #38bdf8 !important;
         border-radius: 12px !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        box-shadow: 0 2px 6px rgba(2, 132, 199, 0.05);
     }
     
     .stChatInputContainer textarea {
-        color: #0f172a !important;
+        color: #0c4a6e !important;
         background-color: transparent !important;
     }
     
     /* Sidebar Styling */
     [data-testid="stSidebar"] {
-        background-color: #f1f5f9 !important;
-        border-right: 1px solid #e2e8f0;
+        background-color: #e0f2fe !important;
+        border-right: 1px solid #bae6fd;
     }
     </style>
 """,
@@ -90,12 +90,12 @@ if not api_key:
 else:
   genai.configure(api_key=api_key)
 
-# Hero Header
+# Ocean Hero Header
 st.markdown(
     """
     <div class="hero-header">
-        <h2 style="margin: 0; font-weight: 700; color: #1e293b;">🚀 Personal AI Workspace</h2>
-        <p style="margin: 5px 0 0 0; color: #64748b; font-size: 1rem;">Your custom intelligence hub • Powered by Google Gemini 2.5 Flash</p>
+        <h2 style="margin: 0; font-weight: 700; color: #0369a1;">🌊 Oceanic AI Workspace</h2>
+        <p style="margin: 5px 0 0 0; color: #0284c7; font-size: 1rem;">Sail through tasks, coding, and learning • Powered by Google Gemini 2.5 Flash</p>
     </div>
 """,
     unsafe_allow_html=True,
@@ -103,7 +103,7 @@ st.markdown(
 
 # Sidebar for Persona / Mode Selection
 st.sidebar.markdown(
-    "## 🎛️ Control Panel", unsafe_allow_html=True
+    "## ⚓ Control Deck", unsafe_allow_html=True
 )
 persona = st.sidebar.selectbox(
     "Choose AI Persona/Mode",
@@ -116,8 +116,8 @@ if persona == "General Assistant":
       "You are a helpful, smart, and versatile personal AI assistant. Help"
       " the user with general tasks, brainstorming, summarizing, and writing."
   )
-  st.sidebar.info(
-      "💡 **Mode:** General Assistant\n\nReady to help with summaries, writing,"
+  st.sidebar.success(
+      "🌊 Mode Active: **General Assistant**\n\nReady for summaries, writing,"
       " and tasks."
   )
 
@@ -127,8 +127,9 @@ elif persona == "AI Tutor":
       " simply, use analogies, ask interactive questions, and guide the user"
       " step-by-step without just giving away answers right away."
   )
-  st.sidebar.info(
-      "📚 **Mode:** AI Tutor\n\nReady to explain code, teach Python, or math."
+  st.sidebar.success(
+      "🐬 Mode Active: **AI Tutor**\n\nReady to explain code, teach Python, or"
+      " math."
   )
 
 elif persona == "Project Builder":
@@ -137,14 +138,15 @@ elif persona == "Project Builder":
       " applications, write clean code snippets, structure projects, and solve"
       " technical roadblocks."
   )
-  st.sidebar.info(
-      "💻 **Mode:** Project Builder\n\nReady to write code and architect apps."
+  st.sidebar.success(
+      "⚓ Mode Active: **Project Builder**\n\nReady to write code and architect"
+      " apps."
   )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    "### 📊 Dashboard Info\n- **Cloud Host:** Streamlit Cloud\n- **Access"
-    " Level:** Unlimited\n- **Status:** Active"
+    "### 🧭 Voyage Stats\n- **Cloud Host:** Streamlit Cloud\n- **Waters:**"
+    " Calm & Secure\n- **Status:** Active"
 )
 
 # Initialize Gemini Model
@@ -163,8 +165,8 @@ if "messages" not in st.session_state:
 if not st.session_state.messages:
   with st.chat_message("assistant"):
     st.markdown(
-        f"Hello! Your **{persona}** workspace is ready. How can I help you"
-        " excel today?"
+        f"Ahoy! Your **{persona}** oceanic workspace is ready. What shall we"
+        " explore or build today?"
     )
 
 # Display chat history from session state
@@ -180,7 +182,7 @@ if user_input := st.chat_input("Type your message or ask for code..."):
 
   # Generate response from Gemini model
   with st.chat_message("assistant"):
-    with st.spinner("✨ Thinking..."):
+    with st.spinner("🌊 Navigating thoughts..."):
       try:
         full_prompt = f"{system_prompt}\n\nUser Query: {user_input}"
         response = model.generate_content(full_prompt)
