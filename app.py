@@ -4,77 +4,78 @@ import streamlit as st
 
 # Configure page settings
 st.set_page_config(
-    page_title="AI Command Center", page_icon="🚀", layout="wide"
+    page_title="AI Workspace", page_icon="✨", layout="wide"
 )
 
-# Custom CSS for 100% Pure Cohesive Dark Theme
+# Custom CSS for 100% Pure Cohesive Light Theme
 st.markdown(
     """
     <style>
-    /* Force full dark background across the entire app and sidebar */
+    /* Force full light background across the entire app and sidebar */
     .stApp, .main, [data-testid="stSidebar"] {
-        background-color: #08090d !important;
-        color: #e2e8f0 !important;
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
     }
     
     /* Hide Streamlit default top header */
     header {visibility: hidden;}
 
-    /* Command Center Hero Header */
-    .command-header {
-        background: linear-gradient(135deg, #12141c 0%, #1a1d2d 100%);
-        border: 1px solid rgba(139, 92, 246, 0.2);
+    /* Hero Header Card */
+    .hero-header {
+        background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
         padding: 2rem;
         border-radius: 16px;
-        color: white;
+        color: #0f172a;
         margin-bottom: 2rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     }
     
-    /* Mission Telemetry Stat Cards */
+    /* Telemetry Stat Cards */
     .stat-card {
-        background: rgba(18, 20, 28, 0.8);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 1.2rem;
         text-align: center;
         flex: 1;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
     }
     
-    /* Chat Message Bubbles for Dark Mode */
+    /* Chat Message Bubbles for Light Mode */
     .stChatMessage {
-        background-color: #12141c !important;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background-color: #ffffff !important;
+        border: 1px solid #e2e8f0;
         border-radius: 12px;
         padding: 1rem;
         margin-bottom: 1rem;
-        color: #e2e8f0 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        color: #0f172a !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
     
-    /* COMPLETELY FIX THE BOTTOM CHAT INPUT BAR TO DARK THEME */
+    /* Bottom Chat Input Bar for Light Mode */
     [data-testid="stChatInput"] {
-        background-color: #08090d !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        background-color: #f8fafc !important;
+        border-top: 1px solid #e2e8f0;
         padding-bottom: 1rem;
     }
     
     .stChatInputContainer {
-        background-color: #12141c !important;
-        border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        background-color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
         border-radius: 12px !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
     
     .stChatInputContainer textarea {
-        color: #ffffff !important;
+        color: #0f172a !important;
         background-color: transparent !important;
     }
     
     /* Sidebar Styling */
     [data-testid="stSidebar"] {
-        background-color: #0d0f17 !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        background-color: #f1f5f9 !important;
+        border-right: 1px solid #e2e8f0;
     }
     </style>
 """,
@@ -100,25 +101,25 @@ if not api_key:
 else:
   genai.configure(api_key=api_key)
 
-# Command Center Hero Header
+# Hero Header
 st.markdown(
     """
-    <div class="command-header">
-        <h2 style="margin: 0; font-weight: 700; letter-spacing: 0.5px; color: #ffffff;">⚡ Command Center</h2>
-        <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 1rem;">Welcome back, Commander • Powered by Google Gemini 2.5 Flash</p>
+    <div class="hero-header">
+        <h2 style="margin: 0; font-weight: 700; color: #1e293b;">🚀 Personal AI Workspace</h2>
+        <p style="margin: 5px 0 0 0; color: #64748b; font-size: 1rem;">Your custom intelligence hub • Powered by Google Gemini 2.5 Flash</p>
     </div>
 """,
     unsafe_allow_html=True,
 )
 
-# Mission Telemetry / Stat Cards Row
+# Stat Cards Row
 col1, col2, col3, col4 = st.columns(4)
 with col1:
   st.markdown(
       """
         <div class="stat-card">
-            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">System Status</div>
-            <div style="font-size: 1.4rem; font-weight: 700; color: #34d399; margin-top: 5px;">ONLINE</div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">System Status</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: #16a34a; margin-top: 5px;">ONLINE</div>
         </div>
     """,
       unsafe_allow_html=True,
@@ -127,8 +128,8 @@ with col2:
   st.markdown(
       """
         <div class="stat-card">
-            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">AI Model</div>
-            <div style="font-size: 1.2rem; font-weight: 700; color: #60a5fa; margin-top: 5px;">Gemini 2.5</div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">AI Model</div>
+            <div style="font-size: 1.1rem; font-weight: 700; color: #2563eb; margin-top: 5px;">Gemini 2.5</div>
         </div>
     """,
       unsafe_allow_html=True,
@@ -137,8 +138,8 @@ with col3:
   st.markdown(
       """
         <div class="stat-card">
-            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Security</div>
-            <div style="font-size: 1.4rem; font-weight: 700; color: #a78bfa; margin-top: 5px;">SECURE</div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Security</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: #7c3aed; margin-top: 5px;">SECURE</div>
         </div>
     """,
       unsafe_allow_html=True,
@@ -147,8 +148,8 @@ with col4:
   st.markdown(
       """
         <div class="stat-card">
-            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Uptime</div>
-            <div style="font-size: 1.4rem; font-weight: 700; color: #f472b6; margin-top: 5px;">100%</div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px;">Uptime</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: #db2777; margin-top: 5px;">100%</div>
         </div>
     """,
       unsafe_allow_html=True,
@@ -158,7 +159,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # Sidebar for Persona / Mode Selection
 st.sidebar.markdown(
-    "## 🌌 Navigation Hub", unsafe_allow_html=True
+    "## 🎛️ Control Panel", unsafe_allow_html=True
 )
 persona = st.sidebar.selectbox(
     "Choose AI Persona/Mode",
@@ -172,8 +173,8 @@ if persona == "General Assistant":
       " the user with general tasks, brainstorming, summarizing, and writing."
   )
   st.sidebar.info(
-      "🛰️ **Mode:** General Assistant\n\nReady for operations, logs, and"
-      " writing tasks."
+      "💡 **Mode:** General Assistant\n\nReady to help with summaries, writing,"
+      " and tasks."
   )
 
 elif persona == "AI Tutor":
@@ -183,8 +184,7 @@ elif persona == "AI Tutor":
       " step-by-step without just giving away answers right away."
   )
   st.sidebar.info(
-      "🪐 **Mode:** AI Tutor\n\nReady to decode programming, science, and math"
-      " modules."
+      "📚 **Mode:** AI Tutor\n\nReady to explain code, teach Python, or math."
   )
 
 elif persona == "Project Builder":
@@ -194,14 +194,13 @@ elif persona == "Project Builder":
       " technical roadblocks."
   )
   st.sidebar.info(
-      "🚀 **Mode:** Project Builder\n\nReady to architect apps and build"
-      " systems."
+      "💻 **Mode:** Project Builder\n\nReady to write code and architect apps."
   )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    "### 📡 Telemetry Logs\n- **Cloud Host:** Streamlit Cloud\n- **Access Level:"
-    "** Unlimited\n- **Connection:** Encrypted"
+    "### 📊 Dashboard Info\n- **Cloud Host:** Streamlit Cloud\n- **Access"
+    " Level:** Unlimited\n- **Status:** Active"
 )
 
 # Initialize Gemini Model
@@ -220,8 +219,8 @@ if "messages" not in st.session_state:
 if not st.session_state.messages:
   with st.chat_message("assistant"):
     st.markdown(
-        f"Commander, your **{persona}** module is active and synced. What"
-        " mission shall we execute today?"
+        f"Hello! Your **{persona}** workspace is ready. How can I help you"
+        " excel today?"
     )
 
 # Display chat history from session state
@@ -229,15 +228,15 @@ for message in st.session_state.messages:
   with st.chat_message(message["role"]):
     st.markdown(message["content"])
 
-# User Input Handling (Unified single chat bar)
-if user_input := st.chat_input("Enter command or query..."):
+# User Input Handling
+if user_input := st.chat_input("Type your message or ask for code..."):
   st.session_state.messages.append({"role": "user", "content": user_input})
   with st.chat_message("user"):
     st.markdown(user_input)
 
   # Generate response from Gemini model
   with st.chat_message("assistant"):
-    with st.spinner("⚡ Processing transmission..."):
+    with st.spinner("✨ Thinking..."):
       try:
         full_prompt = f"{system_prompt}\n\nUser Query: {user_input}"
         response = model.generate_content(full_prompt)
@@ -249,6 +248,6 @@ if user_input := st.chat_input("Enter command or query..."):
         )
       except Exception as e:
         st.error(
-            f"Command error: {e}. (If this is a 503 high demand error,"
-            " re-initiating transmission in a moment will resolve it!)"
+            f"Agent error: {e}. (If this is a 503 high demand error, please try"
+            " again in a moment!)"
         )
