@@ -1,3 +1,4 @@
+import datetime
 import os
 import google.generativeai as genai
 import streamlit as st
@@ -55,7 +56,7 @@ else:  # Dark Theme 🌙
   footer_bg = "#08090d"
   water_display = "none"
 
-# Apply Dynamic CSS (Turning the bottom search bar wrapper blue/ocean themed)
+# Apply Dynamic CSS
 st.markdown(
     """
     <style>
@@ -106,7 +107,6 @@ st.markdown(
         z-index: 2;
     }
     
-    /* FILL THE BOTTOM WRAPPER WITH BLUE/OCEAN GRADIENT */
     [data-testid="stChatInput"] {
         background: """
     + footer_bg
@@ -183,7 +183,6 @@ st.markdown(
     .fish-3 { top: 60%; animation-duration: 20s; animation-delay: 2s; font-size: 28px; }
     .fish-4 { top: 80%; animation-duration: 22s; animation-delay: 6s; }
 
-    /* Animated Floating Water Wave at the Bottom */
     .ocean-water-container {
         position: fixed;
         bottom: 0;
@@ -230,6 +229,29 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
+# --- AGENTIC AI TOOLS (Functions the AI can call autonomously) ---
+def calculate_expression(expression: str) -> str:
+  """Calculates a mathematical expression safely when numbers or calculations are requested.
+
+  Args:
+    expression: A mathematical string like '4521 * 384 / 2'
+  """
+  try:
+    result = eval(expression)
+    return f"The mathematical calculation result is: {result}"
+  except Exception as e:
+    return f"Error calculating expression: {e}"
+
+
+def get_current_time_info() -> str:
+  """Returns the current precise date and time when asked about time or dates."""
+  return f"The current system date and time is: {datetime.datetime.now()}"
+
+
+# List of tools available to the agent
+agent_tools = [calculate_expression, get_current_time_info]
+
 # Initialize Gemini API configuration
 api_key = None
 try:
@@ -253,8 +275,8 @@ else:
 st.markdown(
     """
     <div class="hero-header">
-        <h2 style="margin: 0; font-weight: 700;">🚀 Personal AI Workspace</h2>
-        <p style="margin: 5px 0 0 0; font-size: 1rem; opacity: 0.85;">Your custom intelligence hub • Powered by Google Gemini 2.5 Flash</p>
+        <h2 style="margin: 0; font-weight: 700;">🚀 Agentic AI Workspace</h2>
+        <p style="margin: 5px 0 0 0; font-size: 1rem; opacity: 0.85;">Autonomous tool execution • Powered by Google Gemini 2.5 Flash</p>
     </div>
 """,
     unsafe_allow_html=True,
@@ -272,49 +294,53 @@ persona = st.sidebar.selectbox(
 # Define system prompts based on selected persona
 if persona == "General Assistant":
   system_prompt = (
-      "You are a helpful, smart, and versatile personal AI assistant. Help"
-      " the user with general tasks, brainstorming, summarizing, and writing."
+      "You are a helpful, smart, and versatile agentic AI assistant with access"
+      " to tools. Use your tools whenever calculations or time checks are"
+      " required."
   )
   st.sidebar.info(
-      "💡 **Mode:** General Assistant\n\nReady to help with summaries, writing,"
-      " and tasks."
+      "💡 **Mode:** General Assistant\n\nReady with active tool execution."
   )
 
 elif persona == "AI Tutor":
   system_prompt = (
-      "You are an expert, patient, and encouraging tutor. Break down concepts"
-      " simply, use analogies, ask interactive questions, and guide the user"
-      " step-by-step without just giving away answers right away."
+      "You are an expert, patient, and encouraging agentic tutor. Use your"
+      " math calculation tool when explaining equations or problem-solving."
   )
-  st.sidebar.info(
-      "📚 **Mode:** AI Tutor\n\nReady to explain code, teach Python, or math."
-  )
+  st.sidebar.info("📚 **Mode:** AI Tutor\n\nReady to solve and teach step-by-step.")
 
 elif persona == "Project Builder":
   system_prompt = (
-      "You are a master software architect and coding mentor. Help design"
-      " applications, write clean code snippets, structure projects, and solve"
-      " technical roadblocks."
+      "You are a master software architect and coding mentor agent. Help design"
+      " applications, calculate metrics, and build code architectures."
   )
   st.sidebar.info(
-      "💻 **Mode:** Project Builder\n\nReady to write code and architect apps."
+      "💻 **Mode:** Project Builder\n\nReady to architect apps and compute"
+      " logic."
   )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    "### 📊 Dashboard Info\n**Cloud Host:** Streamlit Cloud\n**Access Level:**"
-    " Unlimited\n**Status:** Active"
+    "### 📊 Dashboard Info\n**Agent Status:** Autonomous Tools Active\n**Host:**"
+    " Streamlit Cloud\n**Status:** Online"
 )
 
-# Initialize Gemini Model
+# Initialize Gemini Model with Tools
 try:
   model = genai.GenerativeModel(
-      model_name="gemini-2.5-flash", system_instruction=system_prompt
+      model_name="gemini-2.5-flash",
+      system_instruction=system_prompt,
+      tools=agent_tools,
   )
 except Exception:
   model = genai.GenerativeModel(model_name="gemini-2.5-flash")
 
-# Session State Management for Chat History
+# Session State Management for Agentic Chat Session
+if "chat_session" not in st.session_state:
+  st.session_state.chat_session = model.start_chat(
+      enable_automatic_function_calling=True
+  )
+
 if "messages" not in st.session_state:
   st.session_state.messages = []
 
@@ -322,8 +348,9 @@ if "messages" not in st.session_state:
 if not st.session_state.messages:
   with st.chat_message("assistant"):
     st.markdown(
-        f"Hello! Your **{persona}** workspace is ready. How can I help you"
-        " excel today?"
+        f"Hello! Your **{persona}** agentic workspace is ready with active"
+        " tools. Try asking me to calculate a complex math equation or check"
+        " the current time!"
     )
 
 # Display chat history from session state
@@ -331,18 +358,17 @@ for message in st.session_state.messages:
   with st.chat_message(message["role"]):
     st.markdown(message["content"])
 
-# User Input Handling
-if user_input := st.chat_input("Type your message or ask for code..."):
+# User Input Handling with Autonomous Tool Execution
+if user_input := st.chat_input("Ask your agent to perform a task..."):
   st.session_state.messages.append({"role": "user", "content": user_input})
   with st.chat_message("user"):
     st.markdown(user_input)
 
-  # Generate response from Gemini model
+  # Generate response from Gemini agentic session
   with st.chat_message("assistant"):
-    with st.spinner("✨ Processing..."):
+    with st.spinner("🤖 Agent is thinking and executing tools..."):
       try:
-        full_prompt = f"{system_prompt}\n\nUser Query: {user_input}"
-        response = model.generate_content(full_prompt)
+        response = st.session_state.chat_session.send_message(user_input)
         ai_response = response.text
 
         st.markdown(ai_response)
@@ -351,6 +377,6 @@ if user_input := st.chat_input("Type your message or ask for code..."):
         )
       except Exception as e:
         st.error(
-            f"Agent error: {e}. (If this is a 503 high demand error, please try"
-            " again in a moment!)"
+            f"Agent execution error: {e}. (If this is a 503 high demand error,"
+            " please try again in a moment!)"
         )
