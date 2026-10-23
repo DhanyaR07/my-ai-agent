@@ -2,41 +2,83 @@ import os
 import google.generativeai as genai
 import streamlit as st
 
-# Configure page settings with an ocean icon
+# Configure page settings
 st.set_page_config(
-    page_title="Oceanic AI Workspace", page_icon="🌊", layout="wide"
+    page_title="AI Command Center", page_icon="🚀", layout="wide"
 )
 
-# Custom CSS for Sea / Ocean Theme Styling
+# Custom CSS for Dark Space / Cyberpunk Command Center Theme
 st.markdown(
     """
     <style>
-    /* Main Background - Soft Ocean Mist */
-    .main {
-        background-color: #f0f9ff;
+    /* Global Dark Space Background */
+    .stApp {
+        background-color: #08090d;
+        color: #e2e8f0;
     }
     
-    /* Hero Banner - Deep Sea Gradient */
-    .hero-card {
-        background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+    /* Main Content Area */
+    .main {
+        background-color: #08090d;
+    }
+    
+    /* Hide Streamlit Default Header elements for a clean dashboard look */
+    header {visibility: hidden;}
+    
+    /* Custom Command Center Hero Card */
+    .command-header {
+        background: linear-gradient(135deg, #12141c 0%, #1a1d2d 100%);
+        border: 1px solid rgba(139, 92, 246, 0.2);
         padding: 2rem;
         border-radius: 16px;
         color: white;
         margin-bottom: 2rem;
-        box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
     
-    /* Chat Bubble Styling */
-    .stChatMessage {
+    /* Glow Stat Cards (Mission Telemetry Style) */
+    .stat-container {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .stat-card {
+        background: rgba(18, 20, 28, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+        padding: 1.2rem;
+        text-align: center;
+        flex: 1;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+        border-color: rgba(139, 92, 246, 0.5);
+        box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);
     }
     
-    /* Sidebar Customization - Aquatic Tint */
+    /* Chat Message Bubbles Styling for Dark Mode */
+    .stChatMessage {
+        background-color: #12141c !important;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Sidebar Dark Theme Styling */
     [data-testid="stSidebar"] {
-        background-color: #e0f2fe;
-        border-right: 1px solid #bae6fd;
+        background-color: #0d0f17;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Custom Scrollbars and text inputs */
+    .stTextInput input, .stChatInput input {
+        background-color: #12141c !important;
+        color: white !important;
+        border: 1px solid rgba(139, 92, 246, 0.3) !important;
     }
     </style>
 """,
@@ -62,19 +104,66 @@ if not api_key:
 else:
   genai.configure(api_key=api_key)
 
-# Interactive Ocean Hero Banner
+# Command Center Hero Header
 st.markdown(
     """
-    <div class="hero-card">
-        <h1>🌊 Oceanic AI Workspace</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9;">Sail through tasks, coding, and learning with your deep-sea intelligence hub powered by Google Gemini 2.5 Flash.</p>
+    <div class="command-header">
+        <h2 style="margin: 0; font-weight: 700; letter-spacing: 0.5px; color: #ffffff;">⚡ Command Center</h2>
+        <p style="margin: 5px 0 0 0; color: #94a3b8; font-size: 1rem;">Welcome back, Commander • Powered by Google Gemini 2.5 Flash</p>
     </div>
 """,
     unsafe_allow_html=True,
 )
 
-# Sidebar for Persona / Mode Selection with Aquatic Icons
-st.sidebar.markdown("## ⚓ Control Deck")
+# Mission Telemetry / Stat Cards Row
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+  st.markdown(
+      """
+        <div class="stat-card">
+            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">System Status</div>
+            <div style="font-size: 1.4rem; font-weight: 700; color: #34d399; margin-top: 5px;">ONLINE</div>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+with col2:
+  st.markdown(
+      """
+        <div class="stat-card">
+            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">AI Model</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: #60a5fa; margin-top: 5px;">Gemini 2.5</div>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+with col3:
+  st.markdown(
+      """
+        <div class="stat-card">
+            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Security</div>
+            <div style="font-size: 1.4rem; font-weight: 700; color: #a78bfa; margin-top: 5px;">SECURE</div>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+with col4:
+  st.markdown(
+      """
+        <div class="stat-card">
+            <div style="font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;">Uptime</div>
+            <div style="font-size: 1.4rem; font-weight: 700; color: #f472b6; margin-top: 5px;">100%</div>
+        </div>
+    """,
+      unsafe_allow_html=True,
+  )
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# Sidebar for Persona / Mode Selection
+st.sidebar.markdown(
+    "## 🌌 Navigation Hub", unsafe_allow_html=True
+)
 persona = st.sidebar.selectbox(
     "Choose AI Persona/Mode",
     ["General Assistant", "AI Tutor", "Project Builder"],
@@ -86,9 +175,9 @@ if persona == "General Assistant":
       "You are a helpful, smart, and versatile personal AI assistant. Help"
       " the user with general tasks, brainstorming, summarizing, and writing."
   )
-  st.sidebar.success(
-      "🌊 Mode Active: **General Assistant**\n\nReady for writing, summaries,"
-      " and daily navigation."
+  st.sidebar.info(
+      "🛰️ **Mode:** General Assistant\n\nReady for operations, logs, and"
+      " writing tasks."
   )
 
 elif persona == "AI Tutor":
@@ -97,9 +186,9 @@ elif persona == "AI Tutor":
       " simply, use analogies, ask interactive questions, and guide the user"
       " step-by-step without just giving away answers right away."
   )
-  st.sidebar.success(
-      "🐬 Mode Active: **AI Tutor**\n\nAsk me to explain code, teach Python,"
-      " data science, or math."
+  st.sidebar.info(
+      "🪐 **Mode:** AI Tutor\n\nReady to decode programming, science, and math"
+      " modules."
   )
 
 elif persona == "Project Builder":
@@ -108,15 +197,15 @@ elif persona == "Project Builder":
       " applications, write clean code snippets, structure projects, and solve"
       " technical roadblocks."
   )
-  st.sidebar.success(
-      "⚓ Mode Active: **Project Builder**\n\nReady to write code, design apps,"
-      " and anchor your projects."
+  st.sidebar.info(
+      "🚀 **Mode:** Project Builder\n\nReady to architect apps and build"
+      " systems."
   )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown(
-    "### 🧭 Voyage Stats\n- **Model:** Gemini 2.5 Flash\n- **Waters:** Calm &"
-    " Secure\n- **Platform:** Streamlit Cloud"
+    "### 📡 Telemetry Logs\n- **Cloud Host:** Streamlit Cloud\n- **Access Level:"
+    "** Unlimited\n- **Connection:** Encrypted"
 )
 
 # Initialize Gemini Model
@@ -131,12 +220,12 @@ except Exception:
 if "messages" not in st.session_state:
   st.session_state.messages = []
 
-# Display interactive welcome message if chat is empty
+# Display welcome message if empty
 if not st.session_state.messages:
   with st.chat_message("assistant"):
     st.markdown(
-        f"Ahoy! I am your **{persona}**. What shall we explore or build"
-        " today?"
+        f"Commander, your **{persona}** module is active and synced. What"
+        " mission shall we execute today?"
     )
 
 # Display chat history from session state
@@ -145,15 +234,14 @@ for message in st.session_state.messages:
     st.markdown(message["content"])
 
 # User Input Handling (Unified single chat bar)
-if user_input := st.chat_input("Type your message or ask for code..."):
-  # Append user message to state and display
+if user_input := st.chat_input("Enter command or query..."):
   st.session_state.messages.append({"role": "user", "content": user_input})
   with st.chat_message("user"):
     st.markdown(user_input)
 
   # Generate response from Gemini model
   with st.chat_message("assistant"):
-    with st.spinner("🌊 Navigating thoughts..."):
+    with st.spinner("⚡ Processing transmission..."):
       try:
         full_prompt = f"{system_prompt}\n\nUser Query: {user_input}"
         response = model.generate_content(full_prompt)
@@ -165,7 +253,6 @@ if user_input := st.chat_input("Type your message or ask for code..."):
         )
       except Exception as e:
         st.error(
-            f"Agent error: {e}. (If this is a 503 high demand error, Google's"
-            " servers are busy—please try sending your message again in a"
-            " moment!)"
+            f"Command error: {e}. (If this is a 503 high demand error,"
+            " re-initiating transmission in a moment will resolve it!)"
         )
